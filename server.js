@@ -1,6 +1,7 @@
 // Get the client
 const mysql = require('mysql2');
 var inquirer = require('inquirer');
+var consoleTable = require("console.table");
 
 const PORT = process.env.PORT || 3001;
 
@@ -12,7 +13,11 @@ const connection = mysql.createConnection({
     // Your Mysql password
     password: 'snookiebaby111',
     database: 'test'
-  });
+});
+
+connection.connect(function(err) {
+    if (err) throw err;
+});
 
 inquirer
   .prompt([
