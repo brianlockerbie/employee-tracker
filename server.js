@@ -12,18 +12,41 @@ const connection = mysql.createConnection({
     user: 'root',
     // Your Mysql password
     password: 'snookiebaby111',
-    database: 'test'
+    database: 'employeeDb'
 });
 
 connection.connect(function(err) {
     if (err) throw err;
+    beginApp();
 });
 
+// Function to begin the app & load the questions
+function beginApp() {
 inquirer
-  .prompt([
-    /* Pass your questions in here */
-  ])
-  .then((answers) => {
+  .prompt({
+    name: "action",
+    type: "list",
+    message: "What would you like to do?",
+    choices: [
+        "View all Employees",
+        "View all Employees by Department",
+        "View departments",
+        "View roles",
+        "Add department",
+        "Add role",
+        "Add Employee",
+        "Remove Employee",
+        "Update Employee Role",
+        "Update Employee Manager",
+        "QUIT"
+    ]
+  })
+  .then(function(answer) {
+    switch (answer.action) {
+    case "View all Employees":
+        viewEmployees();
+        break;
+    }
     // Use user feedback for... whatever!!
   })
   .catch((error) => {
@@ -37,4 +60,4 @@ inquirer
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
-  
+}
