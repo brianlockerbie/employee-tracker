@@ -1,1 +1,1 @@
-let connection = require("./db/connection");
+// const mysql = require("mysql2/promise");
