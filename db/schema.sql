@@ -26,13 +26,9 @@ CREATE TABLE employee (
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
     employee_department VARCHAR(30) NOT NULL,
-    dept VARCHAR(30) NOT NULL,
     salary DECIMAL NOT NULL,
-    manager_id INT,
     role_id INT NOT NULL,
     manager_id INT,
-    FOREIGN KEY (manager_id) REFERENCES employee (id),
-    FOREIGN KEY (role_id) REFERENCES role (id),
     PRIMARY KEY (id)
 );
 

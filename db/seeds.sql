@@ -1,12 +1,12 @@
 Use employeesDb;
 
 -- Departments
-INSERT INTO departments (name) VALUES
-("Sales"),
-("Engineering"),
-("Finance"),
-("Legal"),
-("Operations");
+INSERT INTO department (department_name, the_budget) VALUES
+("Sales", 75000),
+("Engineering", 120000),
+("Finance", 90000),
+("Legal", 200000),
+("Operations", 110000);
 
 -- Roles
 INSERT INTO role (title, salary, department_id) VALUES
@@ -18,18 +18,18 @@ INSERT INTO role (title, salary, department_id) VALUES
 ("Accountant", 125000, 3),
 ("Legal Team Lead", 250000, 4),
 ("Lawyer", 190000, 4),
-("Operations Manager", 111000, 5),
+("Operations Manager", 110000, 5),
 ("Operations Associate", 75000, 5);
 
 -- Employees
-INSERT INTO employees (first_name, last_name, role_id, manager_id, department_id) VALUES
-("Mike", "Chan", 2, 1, 1),
-("Matt", "Leblanc", 5, NULL, 1),
-("Ashley", "Rodriguez", 9, NULL, 2),
-("Kevin", "Tupik", 4, 9, 2),
-("Kunal", "Singh", 3, NULL, 3),
-("Malia", "Brown", 8, 3, 3),
-("Sarah", "Lourd", 1, NULL, 4),
-("Tom", "Allen", 6, 1, 4),
-("Carly", "Bell",7, NULL, 5),
-("Amber", "Smith", 10, 7, 5);
+INSERT INTO employee (first_name, last_name, employee_department, salary, role_id, manager_id) VALUES
+("Mike", "Chan", "Sales", 80000, 1, 1),
+("Matt", "Leblanc", "Sales", 100000, 1, NULL),
+("Ashley", "Rodriguez", "Engineering", 150000, 2, NULL),
+("Kevin", "Tupik", "Engineering", 120000, 2, 2),
+("Kunal", "Singh", "Finance", 160000, 3, NULL),
+("Malia", "Brown", "Finance", 125000, 3, 3),
+("Sarah", "Lourd", "Legal", 250000, 4, NULL),
+("Tom", "Allen", "Legal", 190000, 4, 4),
+("Carly", "Bell","Operations", 110000, 5, NULL),
+("Amber", "Smith", "Operations", 75000, 5, 5);
