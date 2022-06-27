@@ -29,8 +29,8 @@ inquirer
     message: "What would you like to do?",
     choices: [
         "View all departments",
-        "View all roles",
         "View all employees",
+        "View all employees by department",
         "Add a department",
         "Add a role",
         "Add an employee",
@@ -45,13 +45,13 @@ inquirer
     case "View all departments":
       viewDepartments();
       break;
-    
-    case "View all roles":
-      viewRoles();
-      break;
 
     case "View all employees":
       viewEmployees();
+      break;
+
+    case "View all employees by department":
+      viewEmployeeByDepartment();
       break;
 
     case "Add a role":
@@ -92,7 +92,7 @@ function viewDepartments() {
 }
 
 function viewEmployees() {
-    let query = "SELECT employee.id, employee.first_name, employee.last_name, department.department.name, employee.salary, role.title";
+    let query = "SELECT employee.id, employee.first_name, employee.last_name, department.department.name, employee.salary, role.title, manager_name";
     query += "FROM employee";
     query += "INNER JOIN department ON employee.employee_department = department.department_name";
     query += "INNER JOIN role ON department.id = role.department_id";
@@ -104,8 +104,16 @@ function viewEmployees() {
     })
 }
 
-function employeesByDept() {
+function viewEmployeeByDepartment() {
+  let query = "SELECT department.department_name, employee.id, employee.first_name, employee.last_name ";
+  query += "FROM department ";
+  query += "INNER JOIN employee ON employee.employee_department = department.department_name ";
+  query += "ORDER BY department.department_name";
 
+  connection.query(query, function (err, res) {
+    console.table("Employees By Manager", res);
+    beginApp()
+  })
 }
 
 function employeesByMang() {
@@ -127,4 +135,3 @@ function updateEmployeeMang() {
 function updateEmployeeRole() {
 
 };
-

@@ -33,3 +33,10 @@ INSERT INTO employee (first_name, last_name, employee_department, salary, role_i
 ("Tom", "Allen", "Legal", 190000, 4, 4),
 ("Carly", "Bell","Operations", 110000, 5, NULL),
 ("Amber", "Smith", "Operations", 75000, 5, 5);
+
+INSERT INTO manager (id, manager_name) VALUES
+(1, "Matt Leblanc"),
+(2, "Ashley Rodriguez"),
+(3, "Kunal Singh"),
+(4, "Sarah Lourd"),
+(5, "Carly Bell");
