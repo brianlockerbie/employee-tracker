@@ -1,5 +1,5 @@
 const mysql = require('mysql2');
-var inquirer = require('inquirer');
+const inquirer = require('inquirer');
 const cTable = require('console.table');
 
 
@@ -41,7 +41,7 @@ inquirer
     ]
   })
 .then(function(answer) {
-    switch (answer.action) {
+    switch (answer.toDo) {
     case "View all departments":
       viewDepartments();
       break;
@@ -52,10 +52,6 @@ inquirer
 
     case "View all employees":
       viewEmployees();
-      break;
-
-    case "Add a department":
-      addDepartment();
       break;
 
     case "Add a role":
@@ -87,15 +83,26 @@ inquirer
 }
 
 // View all Employees Function
+function viewDepartments() {
+  connection.query("Select id, department_name, the_budget FROM department", function (err, res) {
+    if (err) throw err;
+    console.table("Departments", res);
+    beginApp()
+  })
+}
+
 function viewEmployees() {
-    var query = `SELECT employees.id, employees.first_name, employees.last_name, role.title, departments.name AS department, role.salary,
-    CONCAT(manager.first_name, ' ', manager.last_name) AS Manager FROM employees LEFT JOIN role on employees.role_id = role.id
-    LEFT JOIN departments on role.department_id = departments.id LEFT JOIN employees manager on manager.id = employees.manager_id;`;
-    connection.query(query, function(err, query){
-        console.table(query);
-        beginApp();
-    });
-};
+    let query = "SELECT employee.id, employee.first_name, employee.last_name, department.department.name, employee.salary, role.title";
+    query += "FROM employee";
+    query += "INNER JOIN department ON employee.employee_department = department.department_name";
+    query += "INNER JOIN role ON department.id = role.department_id";
+    query += "LEFT JOIN manager ON employee.manager_id = manager.id";
+
+    connection.query(query, function (err, res) {
+        console.table("All Employees", res);
+        beginApp()
+    })
+}
 
 function employeesByDept() {
 
