@@ -54,8 +54,8 @@ inquirer
       break;
 
     case "View all employees by Manager":
-    viewEmployeeByManager();
-    break;
+      viewEmployeeByManager();
+      break;
 
     case "Add an employee":
       addEmployee();
@@ -115,8 +115,8 @@ function viewEmployeeByDepartment() {
   })
 }
 
-function viewEmployeeByManger() {
-  console.log("view Employee by Manager");
+function EmployeeByManger() {
+  console.log("View Employee by Manager");
   let query = "SELECT manager.manager_id, manager.manager_name, employee.first_name, employee.last_name ";
   query += "FROM manager ";
   query += "INNER JOIN employee ON manager.manager_id = employee.manager_id ";
@@ -128,20 +128,46 @@ function viewEmployeeByManger() {
   })
 }
 
+function addNewEmployee() {
+  inquirer
+  .prompt([
+    {
+      name: "newEmployeeFirstName",
+      type: "input",
+      message: "What is the first name of the new employee?"
+    },
+    {
+      name: "newEmployeeLastName",
+      type: "input",
+      message: "What is the last name of the new employee?"
+    },
+    {
+      name: "newEmployeeDepartment",
+      type: "list",
+      message: "Which department is the new emploee in?",
+      choices: [
+        "Sales",
+        "Engineering",
+        "Finance",
+        "Legal",
+        "Operations"
+      ]
+    }
+  ])
+
+}
+
 function deleteEmployee() {
   let query = "SELECT employee.id, employee.first_name,employee.last_mame";
   query += "FROM employee ";
 
   connection.query(query, function(err, results) {
     if (err) throw err;
-    inquirer
-    .prompt
+
   })
 }
 
-function addEmployee() {
 
-}
 
 function updateEmployeeMang() {
 
