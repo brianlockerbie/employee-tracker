@@ -31,8 +31,7 @@ inquirer
         "View all departments",
         "View all employees",
         "View all employees by department",
-        "Add a department",
-        "Add a role",
+        "View all employees by Manager",
         "Add an employee",
         "Remove an employee",
         "Update an employee role",
@@ -54,9 +53,9 @@ inquirer
       viewEmployeeByDepartment();
       break;
 
-    case "Add a role":
-      addRole();
-      break;
+    case "View all employees by Manager":
+    viewEmployeeByManager();
+    break;
 
     case "Add an employee":
       addEmployee();
@@ -71,7 +70,7 @@ inquirer
       break;
 
     case "Update an employee manager":
-      updateEmployeeMang();
+      updateEmployeeManager();
       break;
 
     case "Quit session":
@@ -116,12 +115,28 @@ function viewEmployeeByDepartment() {
   })
 }
 
-function employeesByMang() {
+function viewEmployeeByManger() {
+  console.log("view Employee by Manager");
+  let query = "SELECT manager.manager_id, manager.manager_name, employee.first_name, employee.last_name ";
+  query += "FROM manager ";
+  query += "INNER JOIN employee ON manager.manager_id = employee.manager_id ";
+  query += "ORDER BY manager.manager_name";
 
+  connection.query(query, function (err, res) {
+    console.table("Employees By Manager", res);
+    beginApp()
+  })
 }
 
 function deleteEmployee() {
+  let query = "SELECT employee.id, employee.first_name,employee.last_mame";
+  query += "FROM employee ";
 
+  connection.query(query, function(err, results) {
+    if (err) throw err;
+    inquirer
+    .prompt
+  })
 }
 
 function addEmployee() {
