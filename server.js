@@ -54,10 +54,10 @@ inquirer
       break;
 
     case "View all employees by Manager":
-      viewEmployeeByManager();
+      EmployeeByManger();
       break;
 
-    case "Add an employee":
+    case "Add employee":
       addEmployee();
       break;
       
@@ -128,7 +128,7 @@ function EmployeeByManger() {
   })
 }
 
-function addNewEmployee() {
+function addEmployee() {
   inquirer
   .prompt([
     {
@@ -144,7 +144,7 @@ function addNewEmployee() {
     {
       name: "newEmployeeDepartment",
       type: "list",
-      message: "Which department is the new emploee in?",
+      message: "Which department is the new employee in?",
       choices: [
         "Sales",
         "Engineering",
@@ -152,8 +152,84 @@ function addNewEmployee() {
         "Legal",
         "Operations"
       ]
+    },
+    {
+      name: "newEmployeeSalary",
+      type: "input",
+      message: "What is the salart of the new employee?"
+    },
+    {
+      name: "newEmployeeManager",
+      type: "list",
+      message: "Who will be this new employee's Manager",
+      choices: [
+        "Matt Leblanc",
+        "Ashley Rodriguez",
+        "Kunal Singh",
+        "Sarah Lourd",
+        "Carly Bell"
+      ],
+    },
+    {
+      name: "newEmployeeRole",
+      type: "list",
+      message: "Please select the new employee's role",
+      choices: [
+        "Salesperson",
+        "Software Engineer",
+        "Accountant",
+        "Lawyer",
+        "Operations Associate"
+      ]
     }
   ])
+
+  .then(function(answer) {
+    var newEmployeeManager = " "
+
+    if (answer.newEmployeeManager === "Matt Leblanc") { 
+      newEmployeeManager = 1;
+    }
+
+    if (answer.newEmployeeManager === "Ashley Rodriguez") { 
+      newEmployeeManager = 3;
+    }
+
+    if (answer.newEmployeeManager === "Kevin Tupik") { 
+      newEmployeeManager = 2;
+    }
+
+    if (answer.newEmployeeManager === "Carly Bell") { 
+      newEmployeeManager = 5;
+    }
+
+    if (answer.newEmployeeManager === "Tom Allen") { 
+      newEmployeeManager = 4;
+    }
+
+
+    var newEmployeeRole = " ";
+
+    if (answer.newEmployeeRole === "Salesperson") { 
+      newEmployeeRole = 1;
+    }
+
+    if (answer.newEmployeeRole === "Software Engineer") { 
+      newEmployeeRole = 2;
+    }
+
+    if (answer.newEmployeeRole === "Accountant") { 
+      newEmployeeRole = 3;
+    }
+
+    if (answer.newEmployeeRole === "Lawyer") { 
+      newEmployeeRole = 4;
+    }
+
+    if (answer.newEmployeeRole === "Operations Associate") { 
+      newEmployeeRole = 5;
+    }
+  })
 
 }
 
