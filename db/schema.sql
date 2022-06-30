@@ -39,4 +39,3 @@ CREATE TABLE manager (
     manager_name VARCHAR(30) NOT NULL
 );
 
-SELECT * FROM employee;

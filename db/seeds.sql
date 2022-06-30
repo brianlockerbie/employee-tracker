@@ -40,3 +40,8 @@ INSERT INTO manager (id, manager_name) VALUES
 (3, "Kunal Singh"),
 (4, "Sarah Lourd"),
 (5, "Carly Bell");
+
+SELECT * FROM employee;
+SELECT * FROM role;
+SELECT * FROM department;
+SELECT * FrOM manager;

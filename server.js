@@ -91,14 +91,14 @@ function viewDepartments() {
 }
 
 function viewEmployees() {
-    let query = "SELECT employee.id, employee.first_name, employee.last_name, department.department.name, employee.salary, role.title, manager_name";
-    query += "FROM employee";
-    query += "INNER JOIN department ON employee.employee_department = department.department_name";
-    query += "INNER JOIN role ON department.id = role.department_id";
-    query += "LEFT JOIN manager ON employee.manager_id = manager.id";
+    let query = "SELECT employee.id, employee.first_name, employee.last_name, department.department_name, employee.salary, role.title, manager_name ";
+    query += "FROM employee ";
+    query += "INNER JOIN department ON employee.employee_department = department.department_name ";
+    query += "INNER JOIN role ON department.id = role.department_id ";
+    query += "LEFT JOIN manager ON employee.manager_id = manager.id ";
 
     connection.query(query, function (err, res) {
-        console.table("All Employees", res);
+        console.table('All Employees', res);
         beginApp()
     })
 }
@@ -117,9 +117,9 @@ function viewEmployeeByDepartment() {
 
 function EmployeeByManger() {
   console.log("View Employee by Manager");
-  let query = "SELECT manager.manager_id, manager.manager_name, employee.first_name, employee.last_name ";
+  let query = "SELECT manager.id, manager.manager_name, employee.first_name, employee.last_name ";
   query += "FROM manager ";
-  query += "INNER JOIN employee ON manager.manager_id = employee.manager_id ";
+  query += "INNER JOIN employee ON manager.id = employee.manager_id ";
   query += "ORDER BY manager.manager_name";
 
   connection.query(query, function (err, res) {
@@ -134,7 +134,7 @@ function addEmployee() {
     {
       name: "newEmployeeFirstName",
       type: "input",
-      message: "What is the first name of the new employee?"
+      message: "What is the first name of the new employee? (Required.)"
     },
     {
       name: "newEmployeeLastName",
@@ -262,7 +262,7 @@ function removeEmployee() {
       {
         name: "option",
         type: "list",
-        message: "Please select the employee you would like to delete?",
+        message: "Please select the employee you would like to remove?",
         choices: function() {
           let optionArray = [];
             for (let i=1; i < results.length; i++) {
@@ -275,7 +275,7 @@ function removeEmployee() {
       }
     ])
     .then(function(answer) {
-      deleteEmployee(answer);
+      removeEmployee(answer);
       return answer;
     })
   })
@@ -287,7 +287,7 @@ function updateEmployeeRole() {
   let query = "SELECT employee.id, employee.first_name, employee.last_name, employee.roles_id, roles.titles"
   query += "FROM employee";
   query += "INNER JOIN department ON employee.employee_department = department.department_name";
-  query += "INNER JOIN roles on department.id = roles.department_id";
+  query += "INNER JOIN role on department.id = role.department_id";
 
   connection.query(query, function(err, results) {
     if (err) throw err;
