@@ -161,7 +161,7 @@ function addEmployee() {
     {
       name: "newEmployeeManager",
       type: "list",
-      message: "Who will be this new employee's Manager",
+      message: "Who will be this new employee's Manager?",
       choices: [
         "Matt Leblanc",
         "Ashley Rodriguez",
@@ -229,26 +229,96 @@ function addEmployee() {
     if (answer.newEmployeeRole === "Operations Associate") { 
       newEmployeeRole = 5;
     }
+
+    var query = connection.query(
+
+      "INSERT INTO employee SET ?",
+      {
+        first_name: answer.newEmployeeFirstName,
+        last_name: answer.newEmpleesLastName,
+        employee_deparment: answer.newEmployeeDepartment,
+        salary: answer.newEmployeeSalary,
+        role_id: newEmployeeRole,
+        manager_id: newEmployeeManager
+      },
+
+      function (err, res) {
+        if (err) throw err;
+        console.log(res.rowsAffected + " Employee Added!");
+        beginApp()
+      }
+    )
   })
 
 }
 
-function deleteEmployee() {
-  let query = "SELECT employee.id, employee.first_name,employee.last_mame";
+function removeEmployee() {
+  let query = "SELECT employee.id, employee.first_name, employee.last_name ";
   query += "FROM employee ";
-
   connection.query(query, function(err, results) {
     if (err) throw err;
-
+    inquirer
+    .prompt([
+      {
+        name: "option",
+        type: "list",
+        message: "Please select the employee you would like to delete?",
+        choices: function() {
+          let optionArray = [];
+            for (let i=1; i < results.length; i++) {
+            let employ = " ";
+            employ = `${results[i].id} ${results[i].fist_name} ${results[i].last_name}`
+            optionArray.push(employ)
+          }
+        return optionArray;
+        }
+      }
+    ])
+    .then(function(answer) {
+      deleteEmployee(answer);
+      return answer;
+    })
   })
 }
 
 
-
-function updateEmployeeMang() {
-
-}
 
 function updateEmployeeRole() {
 
-};
+}
+ 
+function updateEmployeeManager() {
+  let query = "SELECT employee.id, employee.first_name, employee.last_name ";
+  query += "FROM employee ";
+  connection.query(query, function(err, results) {
+    if (err) throw err;
+    inquirer.prompt([
+      {
+        name: "option",
+        type: "list",
+        message: "Please select the employees manager that would like to update.",
+        choices: function() {
+          let optionArray = [];
+          for (let i=1; i < results.length; i++) {
+            let employ = " ";
+            employ = `${results[i].id} ${results[i].first_name} ${results[i].id} ${results[i].last_name}`
+            optionArray.push(employ)
+          }
+          return optionArray;
+        }
+      },
+      {
+        name: "managerUpdate",
+        type: "list",
+        message: "Please select which manager you would like to assign to this employee",
+        choices: ["Matt Leblanc",
+        "Ashley Rodriguez",
+        "Kunal Singh"]
+      }
+    ])
+    .then(function(answer) {
+      updateEmployeeManager(answer);
+      return answer;
+    })
+  })
+}
