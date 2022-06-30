@@ -81,7 +81,7 @@ inquirer
   });
 }
 
-// View all Employees Function
+// View all Employees Departments
 function viewDepartments() {
   connection.query("Select id, department_name, the_budget FROM department", function (err, res) {
     if (err) throw err;
@@ -275,12 +275,28 @@ function removeEmployee() {
       }
     ])
     .then(function(answer) {
-      removeEmployee(answer);
+      deleteRemovedEmployee(answer);
       return answer;
     })
   })
 }
 
+function deleteRemovedEmployee(answer) {
+  let choiceStr = answer.choice.split(" ");
+  connection.query(
+    "DELETE FROM employee WHERE ?",
+    [
+      {
+        id: parseInt(choiceStr[0])
+      }
+    ],
+    function(error, res) {
+      if (error) throw error;
+      console.log(res.affectedRows + " You DELETED the Employee!");
+    beginApp()
+    }
+  )
+}
 
 
 function updateEmployeeRole() {
@@ -357,6 +373,51 @@ function updateEmployeeManager() {
   })
 }
 
+
 function updateEmployeeManager(answer) {
   newManager = "";
+
+  if (answer.managerUpdate === "Matt Leblanc") {
+    newManager = 1;
+  }
+
+  if (answer.managerUpdate === "Ashley Rodriguez") {
+    newManager = 2;
+  }
+
+  if (answer.managerUpdate === "Kunal Singh") {
+    newManager = 3;
+  }
+
+  if (answer.managerUpdate === "Sarah Lourd") {
+    newManager = 4
+  }
+
+  if (answser.managerUpdate === "Carly Bell") {
+    newManager = 5
+  }
+
+  let choiceStr = answer.choice.split(" ");
+  
+  connection.query(
+    "UPDATE employee SET ? WHERE ?",
+    [
+      {
+        manager_id: newManager
+      },
+      {
+        id: parseInt(choiceStr[0])
+      }
+    ],
+    function(error, res) {
+      if (error) throw error;
+      console.log(res.affectedRows + " You UPDATED the Employee's Manager!");
+    runSearch();
+    }
+  )
+}
+
+function quitSession() {
+  console.log("Quit sessopm. Thanks for using Employee Tracker CMS.");
+  connection.end();
 }
