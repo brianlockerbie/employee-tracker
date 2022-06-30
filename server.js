@@ -284,7 +284,41 @@ function removeEmployee() {
 
 
 function updateEmployeeRole() {
+  let query = "SELECT employee.id, employee.first_name, employee.last_name, employee.roles_id, roles.titles"
+  query += "FROM employee";
+  query += "INNER JOIN department ON employee.employee_department = department.department_name";
+  query += "INNER JOIN roles on department.id = roles.department_id";
 
+  connection.query(query, function(err, results) {
+    if (err) throw err;
+
+    inquirer.prompt([
+      {
+        name: "option",
+        type: "list",
+        message: "Select an employees role you would like to update.",
+        choices: function() {
+          let optionArray = [];
+          for (let i=1; i < results.length; i++) {
+            let employ = "";
+            employ = `${results[i].id} ${results[i].first_name} ${results[i].last_name} ${results[i].department_name} ${results[i].role_id} ${results[i].title}`
+            optionArray.push(employ)
+          }
+        return optionArray;
+        }
+      },
+      {
+        name: "roleUpdate",
+        type: "list",
+        message: "Select role to update this employee's role to.",
+        choices: ["Sales Manager", "Lead Engineer", "Account Manager", "Legal Team Lead", "Operations Manager" ]
+      }
+    ])
+    .then(function(answer) {
+    updateToSelectedRole(answer);
+    return answer;
+    })
+  })
 }
  
 function updateEmployeeManager() {
@@ -321,4 +355,8 @@ function updateEmployeeManager() {
       return answer;
     })
   })
+}
+
+function updateEmployeeManager(answer) {
+  newManager = "";
 }
