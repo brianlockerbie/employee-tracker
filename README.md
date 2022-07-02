@@ -2,13 +2,21 @@
 <p align="center">Module #12 - MySQL</p>
 
 ## Description
+This commanmd-line application will allow an employer to add, update, create & delete (CRUD) functions to manage a company's employee database.
+This app uses an SQL database that represents the departments, roles & employees of a company. 
 
 ## Built With:
+* JavaScript
+* Node.js
+* NPM
+* Inquirer
+* MySQL
 
 ## Installation
 
 
 ## Usage
+View video walkthrough on how to use this application:
 
 ## User Story
 AS A business owner
