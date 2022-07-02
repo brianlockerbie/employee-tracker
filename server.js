@@ -134,7 +134,7 @@ function addEmployee() {
     {
       name: "newEmployeeFirstName",
       type: "input",
-      message: "What is the first name of the new employee? (Required.)"
+      message: "What is the first name of the new employee? "
     },
     {
       name: "newEmployeeLastName",
@@ -300,10 +300,10 @@ function deleteRemovedEmployee(answer) {
 
 
 function updateEmployeeRole() {
-  let query = "SELECT employee.id, employee.first_name, employee.last_name, employee.roles_id, roles.titles"
-  query += "FROM employee";
-  query += "INNER JOIN department ON employee.employee_department = department.department_name";
-  query += "INNER JOIN role on department.id = role.department_id";
+  let query = "SELECT employee.id, employee.first_name, employee.last_name, employee.role_id, roles.titles ";
+  query += "FROM employee ";
+  query += "INNER JOIN department ON employee.employee_department = department.department_name ";
+  query += "INNER JOIN role on department.id = role.department_id ";
 
   connection.query(query, function(err, results) {
     if (err) throw err;
@@ -418,6 +418,6 @@ function updateEmployeeManager(answer) {
 }
 
 function quitSession() {
-  console.log("Quit sessopm. Thanks for using Employee Tracker CMS.");
+  console.log("Quit session. Thanks for using Employee Tracker CMS.");
   connection.end();
 }
