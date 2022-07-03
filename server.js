@@ -32,7 +32,7 @@ inquirer
         "View all employees",
         "View all employees by department",
         "View all employees by Manager",
-        "Add an employee",
+        "Add employee",
         "Remove an employee",
         "Update an employee role",
         "Update an employee manager",
