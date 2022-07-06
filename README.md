@@ -13,6 +13,7 @@ This app uses an SQL database that represents the departments, roles & employees
 * MySQL
 
 ## Installation
+First clone the repository from GitHub. This application uses inquirer.js, mysql2 & console.table. Run npm install in the root directory to download these dependencies. To view database from MySQL run mysql -u root -p. Once in terminal run node server.js for the app to begin.
 
 
 ## Usage
@@ -43,3 +44,4 @@ WHEN I choose to update an employee role
 THEN I am prompted to select an employee to update and their new role and this information is updated in the database
 
 ## Screenshots
+<img src="module12.png">
