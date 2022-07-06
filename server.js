@@ -32,7 +32,7 @@ inquirer
         "View all employees",
         "View all employees by department",
         "View all employees by Manager",
-        "Add an employee",
+        "Add employee",
         "Remove an employee",
         "Update an employee role",
         "Update an employee manager",
@@ -156,7 +156,7 @@ function addEmployee() {
     {
       name: "newEmployeeSalary",
       type: "input",
-      message: "What is the salart of the new employee?"
+      message: "What is the salary of the new employee?"
     },
     {
       name: "newEmployeeManager",
@@ -236,15 +236,15 @@ function addEmployee() {
       {
         first_name: answer.newEmployeeFirstName,
         last_name: answer.newEmpleesLastName,
-        employee_deparment: answer.newEmployeeDepartment,
+        employee_department: answer.newEmployeeDepartment,
         salary: answer.newEmployeeSalary,
         role_id: newEmployeeRole,
         manager_id: newEmployeeManager
       },
 
       function (err, res) {
-        if (err) throw err;
-        console.log(res.rowsAffected + " Employee Added!");
+        if (err);
+        console.log(" Employee Added!");
         beginApp()
       }
     )
@@ -267,7 +267,7 @@ function removeEmployee() {
           let optionArray = [];
             for (let i=1; i < results.length; i++) {
             let employ = " ";
-            employ = `${results[i].id} ${results[i].fist_name} ${results[i].last_name}`
+            employ = `${results[i].id} ${results[i].first_name} ${results[i].last_name}`
             optionArray.push(employ)
           }
         return optionArray;
@@ -282,7 +282,7 @@ function removeEmployee() {
 }
 
 function deleteRemovedEmployee(answer) {
-  let choiceStr = answer.choice.split(" ");
+  let choiceStr = answer.option;
   connection.query(
     "DELETE FROM employee WHERE ?",
     [
@@ -292,7 +292,7 @@ function deleteRemovedEmployee(answer) {
     ],
     function(error, res) {
       if (error) throw error;
-      console.log(res.affectedRows + " You DELETED the Employee!");
+      console.log(" You DELETED the Employee!");
     beginApp()
     }
   )
@@ -300,7 +300,7 @@ function deleteRemovedEmployee(answer) {
 
 
 function updateEmployeeRole() {
-  let query = "SELECT employee.id, employee.first_name, employee.last_name, employee.role_id, roles.titles ";
+  let query = "SELECT employee.id, employee.first_name, employee.last_name, employee.role_id, role.title ";
   query += "FROM employee ";
   query += "INNER JOIN department ON employee.employee_department = department.department_name ";
   query += "INNER JOIN role on department.id = role.department_id ";
@@ -335,6 +335,61 @@ function updateEmployeeRole() {
     return answer;
     })
   })
+}
+
+function updateToSelectedRole(answer) {
+  newRoleId = "";
+  newDepartment = "";
+  newManager = "";
+
+  if (answer.roleUpdate === 'Sales President') {
+    newRoleId = 2;
+    newDepartment = 'Sales';
+    newManager = 1;
+  }
+  if (answer.roleUpdate === 'Full Stack Engineer') {
+    newRoleId = 2;
+    newDepartment = 'Engineering';
+    newManager = 2;
+  }
+  if (answer.roleUpdate === 'Senior Accountant') {
+    newRoleId = 2;
+    newDepartment = 'Finance';
+    newManager = 3;
+  }
+  if (answer.roleUpdate === 'Civil Lawyer') {
+    newRoleId = 2;
+    newDepartment = 'Legal';
+    newManager = 4;
+  }
+  if (answer.roleUpdate === 'Operations CEO') {
+    newRoleId = 2;
+    newDepartment = 'Operations';
+    newManager = 5;
+  }
+
+  let choiceStr = answer.option.split(" ")
+  console.log(answer);
+  console.log(choiceStr[0]);
+
+  connection.query(
+    "UPDATE employee SET ? WHERE ?",
+    [
+      {
+        role_id: newRoleId,
+        employee_department: newDepartment,
+        manager_id: newManager
+      },
+      {
+        id: parseInt(choiceStr[0])
+      }
+    ],
+    function(error, res) {
+      if (error);
+      console.log(" You UPDATED the Employee's Role!");
+    beginApp();
+    }
+  )
 }
  
 function updateEmployeeManager() {
@@ -393,7 +448,7 @@ function updateEmployeeManager(answer) {
     newManager = 4
   }
 
-  if (answser.managerUpdate === "Carly Bell") {
+  if (answer.managerUpdate === "Carly Bell") {
     newManager = 5
   }
 
@@ -412,12 +467,12 @@ function updateEmployeeManager(answer) {
     function(error, res) {
       if (error) throw error;
       console.log(res.affectedRows + " You UPDATED the Employee's Manager!");
-    runSearch();
+    beginApp();
     }
   )
 }
 
 function quitSession() {
-  console.log("Quit session. Thanks for using Employee Tracker CMS.");
+  console.log("Quit session.");
   connection.end();
 }
