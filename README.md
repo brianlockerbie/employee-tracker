@@ -44,4 +44,7 @@ WHEN I choose to update an employee role
 THEN I am prompted to select an employee to update and their new role and this information is updated in the database
 
 ## Screenshots
-<img src="module12.png">
+<img src="images/module12.png">
+<img src="images/screenshot-module12.png">
+<img src="images/screenshot-module12-1.png">
+<img src="images/screenshot-module12-2.png">
