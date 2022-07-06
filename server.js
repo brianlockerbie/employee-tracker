@@ -156,7 +156,7 @@ function addEmployee() {
     {
       name: "newEmployeeSalary",
       type: "input",
-      message: "What is the salart of the new employee?"
+      message: "What is the salary of the new employee?"
     },
     {
       name: "newEmployeeManager",
@@ -236,15 +236,15 @@ function addEmployee() {
       {
         first_name: answer.newEmployeeFirstName,
         last_name: answer.newEmpleesLastName,
-        employee_deparment: answer.newEmployeeDepartment,
+        employee_department: answer.newEmployeeDepartment,
         salary: answer.newEmployeeSalary,
         role_id: newEmployeeRole,
         manager_id: newEmployeeManager
       },
 
       function (err, res) {
-        if (err) throw err;
-        console.log(res.rowsAffected + " Employee Added!");
+        if (err);
+        console.log(" Employee Added!");
         beginApp()
       }
     )
@@ -282,7 +282,7 @@ function removeEmployee() {
 }
 
 function deleteRemovedEmployee(answer) {
-  let choiceStr = answer.choice.split(" ");
+  let choiceStr = answer.choice(" ");
   connection.query(
     "DELETE FROM employee WHERE ?",
     [
@@ -292,7 +292,7 @@ function deleteRemovedEmployee(answer) {
     ],
     function(error, res) {
       if (error) throw error;
-      console.log(res.affectedRows + " You DELETED the Employee!");
+      console.log(" You DELETED the Employee!");
     beginApp()
     }
   )
