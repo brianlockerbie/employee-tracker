@@ -267,7 +267,7 @@ function removeEmployee() {
           let optionArray = [];
             for (let i=1; i < results.length; i++) {
             let employ = " ";
-            employ = `${results[i].id} ${results[i].fist_name} ${results[i].last_name}`
+            employ = `${results[i].id} ${results[i].first_name} ${results[i].last_name}`
             optionArray.push(employ)
           }
         return optionArray;
@@ -282,7 +282,7 @@ function removeEmployee() {
 }
 
 function deleteRemovedEmployee(answer) {
-  let choiceStr = answer.choice(" ");
+  let choiceStr = answer.option;
   connection.query(
     "DELETE FROM employee WHERE ?",
     [
@@ -300,7 +300,7 @@ function deleteRemovedEmployee(answer) {
 
 
 function updateEmployeeRole() {
-  let query = "SELECT employee.id, employee.first_name, employee.last_name, employee.role_id, roles.titles ";
+  let query = "SELECT employee.id, employee.first_name, employee.last_name, employee.role_id, role.title ";
   query += "FROM employee ";
   query += "INNER JOIN department ON employee.employee_department = department.department_name ";
   query += "INNER JOIN role on department.id = role.department_id ";
@@ -335,6 +335,61 @@ function updateEmployeeRole() {
     return answer;
     })
   })
+}
+
+function updateToSelectedRole(answer) {
+  newRoleId = "";
+  newDepartment = "";
+  newManager = "";
+
+  if (answer.roleUpdate === 'Sales President') {
+    newRoleId = 2;
+    newDepartment = 'Sales';
+    newManager = 1;
+  }
+  if (answer.roleUpdate === 'Full Stack Engineer') {
+    newRoleId = 2;
+    newDepartment = 'Engineering';
+    newManager = 2;
+  }
+  if (answer.roleUpdate === 'Senior Accountant') {
+    newRoleId = 2;
+    newDepartment = 'Finance';
+    newManager = 3;
+  }
+  if (answer.roleUpdate === 'Civil Lawyer') {
+    newRoleId = 2;
+    newDepartment = 'Legal';
+    newManager = 4;
+  }
+  if (answer.roleUpdate === 'Operations CEO') {
+    newRoleId = 2;
+    newDepartment = 'Operations';
+    newManager = 5;
+  }
+
+  let choiceStr = answer.option.split(" ")
+  console.log(answer);
+  console.log(choiceStr[0]);
+
+  connection.query(
+    "UPDATE employee SET ? WHERE ?",
+    [
+      {
+        role_id: newRoleId,
+        employee_department: newDepartment,
+        manager_id: newManager
+      },
+      {
+        id: parseInt(choiceStr[0])
+      }
+    ],
+    function(error, res) {
+      if (error);
+      console.log(" You UPDATED the Employee's Role!");
+    beginApp();
+    }
+  )
 }
  
 function updateEmployeeManager() {
@@ -393,7 +448,7 @@ function updateEmployeeManager(answer) {
     newManager = 4
   }
 
-  if (answser.managerUpdate === "Carly Bell") {
+  if (answer.managerUpdate === "Carly Bell") {
     newManager = 5
   }
 
@@ -412,12 +467,12 @@ function updateEmployeeManager(answer) {
     function(error, res) {
       if (error) throw error;
       console.log(res.affectedRows + " You UPDATED the Employee's Manager!");
-    runSearch();
+    beginApp();
     }
   )
 }
 
 function quitSession() {
-  console.log("Quit session. Thanks for using Employee Tracker CMS.");
+  console.log("Quit session.");
   connection.end();
 }
