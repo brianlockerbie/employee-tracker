@@ -17,7 +17,7 @@ First clone the repository from GitHub. This application uses inquirer.js, mysql
 
 
 ## Usage
-View video walkthrough on how to use this application:
+View video walkthrough on how to use this application: https://drive.google.com/file/d/11HZ8qa3tvxgWWrt5KZ_fsqIlOxFyNHk5/view
 
 ## User Story
 AS A business owner
