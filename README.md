@@ -49,7 +49,6 @@ First clone the repository from GitHub. This application uses inquirer.js, mysql
 ## Usage
 View video walkthrough on how to use this application by clicking [here](https://drive.google.com/file/d/11HZ8qa3tvxgWWrt5KZ_fsqIlOxFyNHk5/view)
 
-
 ## Screenshots
 <img src="images/module12.png">
 <img src="images/screenshot-module12.png">
